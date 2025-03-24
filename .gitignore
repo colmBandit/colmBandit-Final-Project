@@ -26,6 +26,9 @@ config/serviceAccountKey.json
 # Firebase config
 firebase.json
 .firebaserc
+# Firebase config
+frontend/src/firebase.js
+
 
 # Build outputs
 /build
