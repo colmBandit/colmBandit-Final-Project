@@ -1,0 +1,143 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
+/* Global container */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+/* Header (Logo & Sign-up Button) */
+.login-header {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+/* Logo */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Sign-up Button */
+.signup-btn {
+  background-color: #28a745; /* Green accent color */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.signup-btn .icon {
+  margin-right: 5px;
+}
+
+.signup-btn:hover {
+  background-color: #218838; /* Darker green */
+}
+
+/* Login Box */
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 450px;
+  text-align: center;
+}
+
+/* Input Containers (with Icons) */
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+  background: white;
+}
+
+.input-container .icon {
+  margin-right: 10px;
+  color: #888;
+}
+
+/* Input Fields */
+.login-box input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+/* Login Button */
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745; /* Green accent color */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.login-box button .icon {
+  margin-right: 5px;
+}
+
+.login-box button:hover {
+  background-color: #218838; /* Darker green */
+}
+
+/* Register Link */
+.register-link {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #28a745; /* Green accent color */
+  text-decoration: none;
+}
+
+.register-link .icon {
+  margin-right: 5px;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+.back-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745; /* Green accent color */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.back-btn .icon {
+  margin-right: 5px;
+}
+
+.back-btn:hover {
+  background-color: #218838; /* Darker green */
+}

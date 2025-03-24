@@ -1,0 +1,227 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
+/* General Styles */
+.landing-container {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background-color: #28a745; /* Green accent color */
+  color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif; /* Use Montserrat for logo */
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-button {
+  text-decoration: none;
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.nav-button:hover {
+  background-color: white;
+  color: #28a745;
+}
+
+.nav-button .icon {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+/* Hero Section */
+.hero {
+  padding: 60px 20px;
+  background: #28a745; /* Green accent color */
+  color: white;
+}
+
+.hero h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: white;
+  color: #28a745;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  background: #218838; /* Darker green */
+  color: white;
+}
+
+/* Features Section */
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px;
+  background: white;
+}
+
+.feature {
+  width: 30%;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature h3 {
+  color: #28a745;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif; /* Use Montserrat for feature headings */
+}
+
+.feature .icon {
+  margin-right: 10px;
+}
+
+/* How It Works Section */
+.how-it-works {
+  padding: 50px;
+  background: #f8f9fa;
+}
+
+.how-it-works h2 {
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
+}
+
+.step {
+  width: 30%;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.step h3 {
+  color: #28a745;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 50px;
+  background: white;
+}
+
+.testimonials h2 {
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
+}
+
+.testimonial {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+  font-size: 16px;
+}
+
+/* Pricing Section */
+.pricing {
+  padding: 50px;
+  background: #f8f9fa;
+}
+
+.pricing h2 {
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings */
+}
+
+.plan {
+  width: 30%;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.plan.premium {
+  background: #28a745;
+  color: white;
+}
+
+.plan h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.plan-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  background: white;
+  color: #28a745;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.plan-button:hover {
+  background: #218838; /* Darker green */
+  color: white;
+}
+
+.plan.premium .plan-button {
+  background: white;
+  color: #28a745;
+}
+
+.plan.premium .plan-button:hover {
+  background: #218838; /* Darker green */
+  color: white;
+}
+
+/* Footer */
+.footer {
+  margin-top: 30px;
+  padding: 20px;
+  background: #2E7D32; /* Dark Green */
+  color: white;
+}
+
+.footer p {
+  font-size: 14px;
+}

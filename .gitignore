@@ -1,0 +1,60 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+node_modules/
+
+# dotenv environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Firebase service account keys (yours)
+serviceAccountKey.json
+config/serviceAccountKey.json
+
+# Firebase config
+firebase.json
+.firebaserc
+
+# Build outputs
+/build
+/dist
+out/
+.next/
+.cache/
+
+# VSCode settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Firebase emulators data
+firebase-debug.log
+firebase-emulators-debug.log
+
+# Uploaded resume files (if temporarily saved locally)
+uploads/
+resumes/
+
+# MongoDB dump files (if any)
+dump/
+
+# Optional: IntelliJ project files
+.idea/
