@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [recommendedJobs, setRecommendedJobs] = useState([]);
   const navigate = useNavigate();
 
+  // Fetch user details on mount
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -29,6 +30,11 @@ const Dashboard = () => {
       }
     };
 
+    fetchUser();
+  }, [navigate]);
+
+  // Fetch jobs after user is authenticated
+  useEffect(() => {
     const fetchJobs = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -41,10 +47,16 @@ const Dashboard = () => {
       }
     };
 
+    if (user) fetchJobs();
+  }, [user]);
+
+  // Fetch recommendations once the user data is available
+  useEffect(() => {
     const fetchRecommendations = async () => {
+      if (!user) return;
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.post("http://localhost:5000/api/seed-jobs", {
+        const res = await axios.get("http://localhost:5000/api/recommend-jobs", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRecommendedJobs(res.data);
@@ -53,12 +65,10 @@ const Dashboard = () => {
       }
     };
 
-    fetchUser();
-    fetchJobs();
     fetchRecommendations();
-  }, [navigate]);
+  }, [user]);
 
-  // Summary card values
+  // Summary metrics
   const totalJobs = jobs.length;
   const interviewsScheduled = jobs.filter((job) => job.interviewDate).length;
   const archivedApplications = jobs.filter((job) => job.status === "Archived").length;
@@ -66,10 +76,10 @@ const Dashboard = () => {
 
   return (
     <Container className="dashboard-container">
-      {/* Header with Logo and Logout Button */}
+      {/* Header */}
       <Row className="header-row">
         <Col md={6} className="logo">
-          <h2>InApply</h2> {/* Replace with actual logo */}
+          <h2>InApply</h2>
         </Col>
         <Col md={6} className="text-end">
           <Button
@@ -85,7 +95,7 @@ const Dashboard = () => {
         </Col>
       </Row>
 
-      {/* User Greeting */}
+      {/* Welcome Message */}
       <div className="user-summary">
         <h3>Welcome, {user?.firstName || "User"}</h3>
       </div>
@@ -136,7 +146,7 @@ const Dashboard = () => {
         </Col>
       </Row>
 
-      {/* Recent Jobs / Applications */}
+      {/* Recent Job Applications */}
       <div className="job-recommendations">
         <h3>Recent Job Applications</h3>
         <Row>
@@ -154,7 +164,7 @@ const Dashboard = () => {
         </Row>
       </div>
 
-      {/* Recommended Jobs */}
+      {/* Recommended Jobs Section */}
       <Card className="mt-4">
         <Card.Header>Recommended Jobs For You</Card.Header>
         <Card.Body>

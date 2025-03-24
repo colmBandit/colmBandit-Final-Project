@@ -1,31 +1,34 @@
 const express = require("express");
 const router = express.Router();
 const Job = require("../models/Jobs");
+const Resume = require("../models/Resume");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/recommend-jobs", async (req, res) => {
+router.get("/recommend-jobs", authMiddleware, async (req, res) => {
   try {
-    const { skills } = req.body;
+    const latestResume = await Resume.findOne({ userId: req.user.id }).sort({ createdAt: -1 });
 
-    if (!skills || !Array.isArray(skills) || skills.length === 0) {
-      return res.status(400).json({ message: "No skills provided" });
+    if (!latestResume || !latestResume.skillsSection) {
+      return res.status(400).json({ message: "No resume or skills found for recommendations." });
     }
 
-    console.log("Request body:", req.body);
+    const skillsArray = latestResume.skillsSection
+      .split(/,|\n|;/)
+      .map((skill) => skill.trim())
+      .filter((skill) => skill.length > 1);
+
+    console.log("Skills extracted for recommendations:", skillsArray);
 
     const recommendedJobs = await Job.find({
-      $or: skills.map((skill) => ({
+      $or: skillsArray.map((skill) => ({
         requiredSkills: { $regex: skill, $options: "i" },
       })),
     });
 
-    if (recommendedJobs.length === 0) {
-      return res.status(200).json({ message: "No matching jobs found." });
-    }
+    console.log("Recommended jobs:", recommendedJobs);
 
-    res.status(200).json({
-      message: "Job recommendations based on your skills:",
-      recommendations: recommendedJobs,
-    });
+    // ✅ Send only the recommended jobs array
+    return res.status(200).json(recommendedJobs);
   } catch (error) {
     console.error("Error recommending jobs:", error);
     res.status(500).json({ error: "Server error" });

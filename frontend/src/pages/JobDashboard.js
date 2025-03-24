@@ -23,17 +23,16 @@ const JobDashboard = () => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [fileUrl, setFileUrl] = useState("");
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  //for resumes
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null);
   const [showResumeModal, setShowResumeModal] = useState(false);
+
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchJobs();
-    fetchUploadedFiles();
+    fetchResumes();
   }, []);
 
   const fetchJobs = async () => {
@@ -48,38 +47,21 @@ const JobDashboard = () => {
     }
   };
 
-  const fetchUploadedFiles = async () => {
+  const fetchResumes = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/upload/files", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await fetch("http://localhost:5000/api/upload/resumes", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-      setUploadedFiles(res.data);
-    } catch (error) {
-      console.error("Error fetching uploaded files", error);
+      const data = await response.json();
+      setResumes(data);
+    } catch (err) {
+      console.error("Error fetching resumes:", err);
     }
   };
-  //for resumes
-  useEffect(() => {
-    const fetchResumes = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/upload/resumes", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await response.json();
-        setResumes(data);
-      } catch (err) {
-        console.error("Error fetching resumes:", err);
-      }
-    };
-  
-    fetchResumes();
-  }, []);
-  
-  // File Upload Handlers
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -126,7 +108,7 @@ const JobDashboard = () => {
 
       setFileUrl(res.data.fileUrl);
       alert("File uploaded successfully!");
-      fetchUploadedFiles();
+      fetchResumes(); // Refresh the resumes list
     } catch (error) {
       console.error("Upload error:", error);
       alert("File upload failed! Please check your authentication.");
@@ -135,7 +117,6 @@ const JobDashboard = () => {
     }
   };
 
-  // Job Handlers
   const handleAddJob = async (e) => {
     e.preventDefault();
     try {
@@ -208,19 +189,6 @@ const JobDashboard = () => {
     }
   };
 
-  const handleDeleteFile = async (fileId) => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/upload/files/${fileId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      alert("File deleted successfully!");
-      fetchUploadedFiles();
-    } catch (error) {
-      console.error("Error deleting file", error);
-    }
-  };
-
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
       job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -239,7 +207,6 @@ const JobDashboard = () => {
         </Button>
       </div>
 
-      {/* Search & Filter Controls */}
       <div className="search-filter-wrapper">
         <Form.Control
           type="text"
@@ -261,7 +228,6 @@ const JobDashboard = () => {
         </Form.Select>
       </div>
 
-      {/* File Upload Section */}
       <div
         className="drop-zone"
         onDrop={handleDrop}
@@ -290,7 +256,6 @@ const JobDashboard = () => {
             {uploading ? "Uploading..." : "Upload File"}
           </Button>
         </div>
-
         {file && <p>Selected file: {file.name}</p>}
         {fileUrl && (
           <div className="mt-2">
@@ -302,40 +267,39 @@ const JobDashboard = () => {
         )}
       </div>
 
-      {/* Job List Table */}
-          <h3>Uploaded Resumes</h3>
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>View</th>
-          <th>Download</th>
-        </tr>
-      </thead>
-      <tbody>
-        {resumes.map((resume) => (
-          <tr key={resume._id}>
-            <td>{new Date(resume.createdAt).toLocaleDateString()}</td>
-            <td>
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={() => {
-                  setSelectedResume(resume);
-                  setShowResumeModal(true);
-                }}
-              >
-                View
-              </button>
-            </td>
-            <td>
-              <a href={resume.fileUrl} target="_blank" rel="noopener noreferrer">
-                Download
-              </a>
-            </td>
+      <h3>Uploaded Resumes</h3>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>View</th>
+            <th>Download</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {resumes.map((resume) => (
+            <tr key={resume._id}>
+              <td>{new Date(resume.createdAt).toLocaleDateString()}</td>
+              <td>
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={() => {
+                    setSelectedResume(resume);
+                    setShowResumeModal(true);
+                  }}
+                >
+                  View
+                </button>
+              </td>
+              <td>
+                <a href={resume.fileUrl} target="_blank" rel="noopener noreferrer">
+                  Download
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <Table striped bordered hover className="job-table">
         <thead>
@@ -388,74 +352,41 @@ const JobDashboard = () => {
           )}
         </tbody>
       </Table>
-      {/* Uploaded Files Section */}
-      <div className="uploaded-files-section">
-        <h3>Uploaded Resumes</h3>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>File Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {uploadedFiles.length > 0 ? (
-              uploadedFiles.map((file) => (
-                <tr key={file._id}>
-                  <td>{file.fileName}</td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleDeleteFile(file._id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} className="icon" />
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2" className="text-center">
-                  No uploaded resumes yet.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
-      </div>
 
-      {/* Modal for Adding Job */}
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Job</Modal.Title>
+          <Modal.Title>Add Job Application</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleAddJob}>
+        <Form onSubmit={handleAddJob}>
             <Form.Group className="mb-3">
-              <Form.Label>Job Title:</Form.Label>
+              <Form.Label>Job Title</Form.Label>
               <Form.Control
                 type="text"
+                name="jobTitle"
                 value={formData.jobTitle}
                 onChange={(e) =>
                   setFormData({ ...formData, jobTitle: e.target.value })
                 }
+                required
               />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Company Name:</Form.Label>
+            <Form.Group className="b-3">
+              <Form.Label>Company Name</Form.Label>
               <Form.Control
                 type="text"
+                name="companyName"
                 value={formData.companyName}
                 onChange={(e) =>
                   setFormData({ ...formData, companyName: e.target.value })
                 }
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Status:</Form.Label>
+              <Form.Label>Status</Form.Label>
               <Form.Select
+                name="status"
                 value={formData.status}
                 onChange={(e) =>
                   setFormData({ ...formData, status: e.target.value })
@@ -469,9 +400,11 @@ const JobDashboard = () => {
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Notes:</Form.Label>
+              <Form.Label>Notes</Form.Label>
               <Form.Control
                 as="textarea"
+                rows={3}
+                name="notes"
                 value={formData.notes}
                 onChange={(e) =>
                   setFormData({ ...formData, notes: e.target.value })
@@ -479,9 +412,10 @@ const JobDashboard = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Interview Date:</Form.Label>
+              <Form.Label>Interview Date</Form.Label>
               <Form.Control
                 type="date"
+                name="interviewDate"
                 value={formData.interviewDate}
                 onChange={(e) =>
                   setFormData({ ...formData, interviewDate: e.target.value })
@@ -494,36 +428,41 @@ const JobDashboard = () => {
           </Form>
         </Modal.Body>
       </Modal>
-      {/* Modal for Editing Job */}
+
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Job</Modal.Title>
+          <Modal.Title>Edit Job Application</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleEditSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label>Job Title:</Form.Label>
+              <Form.Label>Job Title</Form.Label>
               <Form.Control
                 type="text"
+                name="jobTitle"
                 value={formData.jobTitle}
                 onChange={(e) =>
                   setFormData({ ...formData, jobTitle: e.target.value })
                 }
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Company Name:</Form.Label>
+              <Form.Label>Company Name</Form.Label>
               <Form.Control
                 type="text"
+                name="companyName"
                 value={formData.companyName}
                 onChange={(e) =>
                   setFormData({ ...formData, companyName: e.target.value })
                 }
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Status:</Form.Label>
+              <Form.Label>Status</Form.Label>
               <Form.Select
+                name="status"
                 value={formData.status}
                 onChange={(e) =>
                   setFormData({ ...formData, status: e.target.value })
@@ -537,9 +476,11 @@ const JobDashboard = () => {
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Notes:</Form.Label>
+              <Form.Label>Notes</Form.Label>
               <Form.Control
                 as="textarea"
+                rows={3}
+                name="notes"
                 value={formData.notes}
                 onChange={(e) =>
                   setFormData({ ...formData, notes: e.target.value })
@@ -547,76 +488,55 @@ const JobDashboard = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Interview Date:</Form.Label>
+              <Form.Label>Interview Date</Form.Label>
               <Form.Control
                 type="date"
-                value={formData.interviewDate}
+                name="interviewDate"
+                value="formData.interviewDate"
                 onChange={(e) =>
                   setFormData({ ...formData, interviewDate: e.target.value })
                 }
               />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Update Job
+              Save Changes
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
-      {/*modal for resumes*/}
-          {selectedResume && (
-      <div
-        className={`modal fade ${showResumeModal ? "show d-block" : ""}`}
-        tabIndex="-1"
-        role="dialog"
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Resume Details</h5>
-              <button
-                type="button"
-                className="close"
-                onClick={() => setShowResumeModal(false)}
-              >
-                <span>&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <h6>Extracted Skills Section:</h6>
-              <p>{selectedResume.skillsSection || "Not found"}</p>
-              <h6>Extracted Experience Section:</h6>
-              <p>{selectedResume.experienceSection || "Not found"}</p>
-            </div>
-            <div className="modal-footer">
-              <a
-                href={selectedResume.fileUrl}
-                className="btn btn-secondary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Download Resume
-              </a>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setShowResumeModal(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    )}
 
+      <Modal
+        show={showResumeModal}
+        onHide={() => setShowResumeModal(false)}
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Resume Preview</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedResume && (
+            <iframe
+              src={selectedResume.fileUrl}
+              title="Resume Preview"
+              width="100%"
+              height="500px"
+              style={{ border: "none" }}
+            />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowResumeModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {/* Floating Back to Dashboard Button */}
       <div className="floating-button">
-        <Button variant="dark" onClick={() => navigate("/dashboard")}>
-          Back to Dashboard
-        </Button>
+      <Button variant="dark" onClick={() => navigate("/dashboard")}>
+        Back to Dashboard
+      </Button>
       </div>
     </Container>
   );
 };
-
 export default JobDashboard;
