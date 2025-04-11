@@ -5,7 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import JobDashboard from "./pages/JobDashboard";  // 👈 Import Job Dashboard
 import LandingPage from "./pages/LandingPage";
-
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/jobs" element={<JobDashboard />} />  {/* 👈 Add Job Dashboard Route */}
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

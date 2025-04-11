@@ -169,9 +169,9 @@ const Dashboard = () => {
         <Card.Header>Recommended Jobs For You</Card.Header>
         <Card.Body>
           {recommendedJobs.length > 0 ? (
-            recommendedJobs.slice(0, 3).map((job) => (
+            recommendedJobs.slice(0, 5).map((job) => (
               <div key={job._id} className="mb-3">
-                <strong>{job.jobTitle}</strong> at {job.companyName}
+                <strong>{job.jobTitle}</strong> 
                 <br />
                 Skills: {job.requiredSkills?.join(", ")}
                 <hr />

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const JobSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
-  companyName: { type: String, required: true },
+  companyName: { type: String, required: false },
   jobTitle: { type: String, required: true },
   requiredSkills: { type: [String], required: false },
   applicationDate: { type: Date, default: Date.now },

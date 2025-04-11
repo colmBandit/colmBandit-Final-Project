@@ -5,6 +5,8 @@ const connectDB = require("./config/db");
 const uploadRoutes = require("./routes/uploadRoutes");
 const seedJobsRoute = require("./routes/seedJobsRoute");
 const recommendationsRoute = require("./routes/recommendationsRoute");
+const adminRoutes = require("./routes/adminRoutes");
+
 
 
 dotenv.config();
@@ -20,6 +22,7 @@ app.use("/api/jobs", require("./routes/jobRoutes")); // ✅ Ensure jobs route is
 app.use("/api/upload", uploadRoutes);
 app.use("/api", seedJobsRoute);
 app.use("/api", recommendationsRoute);
+app.use("/api/admin", adminRoutes);
 
 
 const PORT = process.env.PORT || 5000;
