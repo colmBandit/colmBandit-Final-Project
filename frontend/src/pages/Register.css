@@ -1,144 +1,146 @@
-/* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
-
-/* Global container */
+/* Container and Header */
 .register-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f8f9fa;
-  position: relative;
+  min-height: 100vh;
+  background-color: #0f172a;
+  padding: 40px 20px;
+  font-family: "Segoe UI", sans-serif;
 }
 
-/* Header (Logo & Login Button) */
 .register-header {
-  position: absolute;
-  top: 20px;
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
+  margin-bottom: 40px;
 }
 
-/* Logo */
 .logo {
-  font-size: 24px;
+  font-size: 1.8rem;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
+  color: #38bdf8;
 }
 
-/* Login Button */
 .login-btn {
-  background-color: #28a745; /* Green accent color */
-  color: white;
+  background-color: #38bdf8;
   border: none;
   padding: 8px 16px;
+  color: #fff;
   border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
-}
-
-.login-btn .icon {
-  margin-right: 5px;
-}
-
-.login-btn:hover {
-  background-color: #218838; /* Darker green */
-}
-
-/* Register Box */
-.register-box {
-  background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 450px;
-  text-align: center;
-}
-
-/* Input Containers (with Icons) */
-.input-container {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px 0;
-  padding: 10px;
-  background: white;
+  gap: 8px;
+}
+.login-btn:hover {
+  background-color: #00a4d6;
+}
+/* Box */
+.register-box {
+  background-color: #1e293b;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.input-container .icon {
-  margin-right: 10px;
-  color: #888;
+.register-box h2 {
+  text-align: center;
+  color: #e2e8f0;
+  margin-bottom: 30px;
 }
 
 /* Input Fields */
-.register-box input {
-  width: 100%;
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: #0f172a;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.input-container .icon {
+  color: #64748b;
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.input-container input {
+  background: transparent;
   border: none;
+  color: #e2e8f0;
+  width: 100%;
+  font-size: 1rem;
   outline: none;
-  font-size: 16px;
+}
+
+.input-container input::placeholder {
+  color: #94a3b8;
 }
 
 /* Register Button */
-.register-box button {
+.register-box button[type="submit"] {
+  background-color: #38bdf8;
+  color: #fff;
+  font-weight: bold;
   width: 100%;
   padding: 12px;
-  background-color: #28a745; /* Green accent color */
-  color: white;
-  font-size: 16px;
   border: none;
-  border-radius: 5px;
-  margin-top: 15px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
-
-.register-box button .icon {
-  margin-right: 5px;
+.register-box button[type="submit"]:hover {
+  background-color: #1ab1e8;
 }
-
-.register-box button:hover {
-  background-color: #218838; /* Darker green */
-}
-
 /* Login Link */
 .login-link {
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #28a745; /* Green accent color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  color: #38bdf8;
   text-decoration: none;
+  gap: 6px;
+  font-size: 0.95rem;
 }
 
 .login-link .icon {
-  margin-right: 5px;
+  font-size: 1rem;
 }
 
-.login-link:hover {
-  text-decoration: underline;
-}
-
-/* Back Button */
-.back-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #28a745; /* Green accent color */
-  color: white;
-  font-size: 16px;
+/* Divider Line */
+.register-divider {
+  margin: 30px 0 15px;
   border: none;
-  border-radius: 5px;
-  margin-top: 15px;
+  border-top: 1px solid #334155;
+}
+
+/* Back to Home Button */
+.back-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-weight: 500;
+  font-size: 0.95rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .back-btn .icon {
-  margin-right: 5px;
-}
-
-.back-btn:hover {
-  background-color: #218838; /* Darker green */
+  font-size: 1rem;
 }

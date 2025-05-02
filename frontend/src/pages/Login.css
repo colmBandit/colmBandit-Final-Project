@@ -1,143 +1,167 @@
-/* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
-
-/* Global container */
+/* Global Container */
 .login-container {
+  background-color: #0e1624;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f8f9fa;
-  position: relative;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #d1d5db;
 }
 
-/* Header (Logo & Sign-up Button) */
+/* Header */
 .login-header {
   position: absolute;
   top: 20px;
-  width: 100%;
+  left: 30px;
+  right: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
+  color: #00bfff;
 }
 
-/* Logo */
 .logo {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
 }
 
-/* Sign-up Button */
 .signup-btn {
-  background-color: #28a745; /* Green accent color */
-  color: white;
+  background-color: #00bfff;
+  color: #fff;
   border: none;
   padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
-}
-
-.signup-btn .icon {
-  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .signup-btn:hover {
-  background-color: #218838; /* Darker green */
+  background-color: #00a4d6;
 }
 
 /* Login Box */
 .login-box {
-  background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 450px;
+  background-color: #1e293b;
+  color: #94a3b8;
+  border-radius: 12px;
+  padding: 40px 30px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   text-align: center;
 }
 
-/* Input Containers (with Icons) */
+.login-box h2 {
+  margin-bottom: 25px;
+  color: #f1f5f9;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.input-container input::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+  font-weight: 400;
+}
+
+
+/* Input Fields */
 .input-container {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px 0;
-  padding: 10px;
-  background: white;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
 }
 
 .input-container .icon {
-  margin-right: 10px;
-  color: #888;
+  margin-right: 12px;
+  color: #94a3b8;
 }
 
-/* Input Fields */
-.login-box input {
-  width: 100%;
+.input-container input {
+  background: transparent;
   border: none;
+  color: #0f172a; /* light slate, easier to read on dark */
+  width: 100%;
+  font-size: 1rem;
   outline: none;
-  font-size: 16px;
 }
+
 
 /* Login Button */
-.login-box button {
+.login-box button[type="submit"] {
   width: 100%;
-  padding: 12px;
-  background-color: #28a745; /* Green accent color */
-  color: white;
-  font-size: 16px;
+  background-color: #22caff;
+  color: #fff;
+  padding: 12px 0;
   border: none;
-  border-radius: 5px;
-  margin-top: 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   cursor: pointer;
+  margin-top: 8px;
 }
 
-.login-box button .icon {
-  margin-right: 5px;
-}
-
-.login-box button:hover {
-  background-color: #218838; /* Darker green */
+.login-box button[type="submit"]:hover {
+  background-color: #1ab1e8;
 }
 
 /* Register Link */
 .register-link {
   display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #28a745; /* Green accent color */
+  margin-top: 20px;
+  color: #22caff;
   text-decoration: none;
-}
-
-.register-link .icon {
-  margin-right: 5px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
 }
 
 .register-link:hover {
   text-decoration: underline;
 }
 
-.back-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #28a745; /* Green accent color */
-  color: white;
-  font-size: 16px;
+.login-divider {
+  margin-top: 30px;
+  margin-bottom: 15px;
   border: none;
-  border-radius: 5px;
-  margin-top: 15px;
-  cursor: pointer;
+  border-top: 1px solid #cbd5e1; /* soft slate-gray divider */
+  width: 100%;
 }
 
-.back-btn .icon {
-  margin-right: 5px;
+/* Back Button */
+.back-btn {
+  margin-top: 20px;
+  background: none !important; /* Override Bootstrap */
+  border: none !important;
+  color: #cbd5e1 !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  justify-content: center;
+  text-align: center;
 }
 
 .back-btn:hover {
-  background-color: #218838; /* Darker green */
+  text-decoration: underline;
+  color: #ffffff !important;
 }
+

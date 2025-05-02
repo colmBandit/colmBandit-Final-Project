@@ -1,9 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Register.css"; // Import the CSS file
+import "./Register.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faEnvelope, faLock, faHome, faSignIn } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserPlus,
+  faEnvelope,
+  faLock,
+  faHome,
+  faSignIn,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -15,23 +24,28 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      await axios.post("http://localhost:5000/api/auth/register", {
         firstName,
         lastName,
         email,
         password,
       });
-      console.log("Registration response:", res.data); // Use the response data
-      alert("Registration successful!");
-      navigate("/login");
+
+      toast.success("Registration successful!", {
+        position: "top-right",
+        autoClose: 1000,
+        onClose: () => navigate("/login"),
+      });
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      toast.error(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <div className="register-container">
-      {/* Header with Logo & Login Button */}
+      <ToastContainer /> {/* Toast Notification Container */}
+
+      {/* Header */}
       <div className="register-header">
         <div className="logo">InApply</div>
         <button className="login-btn" onClick={() => navigate("/login")}>
@@ -45,7 +59,7 @@ const Register = () => {
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
           <div className="input-container">
-            <FontAwesomeIcon icon={faUserPlus} className="icon" />
+            <FontAwesomeIcon icon={faUser} className="icon" />
             <input
               type="text"
               placeholder="First Name"
@@ -55,7 +69,7 @@ const Register = () => {
             />
           </div>
           <div className="input-container">
-            <FontAwesomeIcon icon={faUserPlus} className="icon" />
+            <FontAwesomeIcon icon={faUser} className="icon" />
             <input
               type="text"
               placeholder="Last Name"
@@ -96,7 +110,8 @@ const Register = () => {
           Already have an account? Login
         </a>
 
-        {/* Back to Home Button */}
+        <hr className="register-divider" />
+
         <button className="back-btn" onClick={() => navigate("/")}>
           <FontAwesomeIcon icon={faHome} className="icon" />
           Back to Home
